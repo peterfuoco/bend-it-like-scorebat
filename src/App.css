@@ -1,6 +1,6 @@
-* {
+/* * {
   border: 2px solid red;
-}
+} */
 
 section.cards {
   display: flex;
@@ -17,3 +17,15 @@ section.cards .card {
   height: 300px;
   object-fit: cover;
 }
+
+
+body {
+  background: linear-gradient(#6A7AB5, #ffffff);
+  height: 100%;
+}
+/* @media (max-width: 900px) {
+  .carousel {
+    width:auto;
+    height:auto;
+  }
+} */

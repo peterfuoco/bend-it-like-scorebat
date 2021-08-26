@@ -1,27 +1,30 @@
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import './Filter.css';
-export default function Filter (props) {
+import Button from "react-bootstrap/Button";
 
-    console.log(props)
+import './Filter.css';
+import React, { useEffect, useState } from "react";
+
+export default function Filter (props) {
+    console.log(props.buttonState.Dates)
       //Team filtering
         const teamList1 = props.filterData.map((ele) => {
-        return (ele.props.team1)
+        return (ele.team1)
       });
       const teamList2 = props.filterData.map((ele) => {
-        return (ele.props.team2)
+        return (ele.team2)
       });
       const teamList = teamList1.concat(teamList2)
       const uniqueTeams = [...new Set(teamList)];
       console.log(uniqueTeams)
       //Event filtering
       const eventList = props.filterData.map((ele) => {
-        return (ele.props.event)
+        return (ele.event)
       });
       let uniqueEvents = [...new Set(eventList)];
       // Date filtering
       const dateList = props.filterData.map((ele) => {
-        return (ele.props.date)
+        return (ele.date)
       });
       let uniqueDates = [...new Set(dateList)];
       
@@ -42,17 +45,22 @@ export default function Filter (props) {
         )
       });
 
+
+
     return (
         <div className="flex-filter-container">
-            <DropdownButton id="dropdown-basic-button" title="Teams" onClick={props.handleSelect} id='team-dropdown'>
+                  <h3>Filter:</h3>
+            <DropdownButton data-display="static" variant="info" className='filter-button' title={props.buttonState.Teams} onClick={props.handleSelect} id='team-dropdown'>
                  {finalTeamList}
             </DropdownButton>
-            <DropdownButton id="dropdown-basic-button" title="Events" onClick={props.handleSelect} id='event-dropdown'>
+            <DropdownButton data-display="static" variant="info" className='filter-button' title={props.buttonState.Events}  onClick={props.handleSelect} id='event-dropdown'>
                  {finalEventList}
             </DropdownButton>
-            <DropdownButton id="dropdown-basic-button" title="Dates" onClick={props.handleSelect} id='date-dropdown'>
+            <DropdownButton   data-display="static" variant="info" className='filter-button' title={props.buttonState.Dates}  onClick={props.handleSelect} id='date-dropdown'>
                  {finalDateList}
             </DropdownButton>
+
+            <Button variant="danger" onClick={props.clearBtn}>Clear Filter</Button>{' '}
         </div>
 )
 }

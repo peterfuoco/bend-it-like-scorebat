@@ -3,6 +3,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Modal from "react-modal";
 import Carousel from "react-bootstrap/Carousel";
+import Button from "react-bootstrap/Button";
+import './ItemVideo.css';
 
 const customStyles = {
   content: {
@@ -17,6 +19,7 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 export default function ItemVideo(props) {
+  console.log(props)
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -24,54 +27,38 @@ export default function ItemVideo(props) {
     setIsOpen(true);
   }
 
-  function afterOpenModal() {
-    subtitle.style.color = "#f00";
-  }
 
   function closeModal() {
     setIsOpen(false);
   }
+  const videosLength= props.videos.length;
+  const videos = props.videos.map((ele, index) => {
+    let matches = ele.embed.match(/\bhttps?:\/\/\S+/gi)
+    return (
 
-  var matches = props.videos[0].embed.match(/\bhttps?:\/\/\S+/gi);
+      <Carousel.Item key={index}>
+        <iframe src={matches}></iframe>
+      </Carousel.Item>
+    )
+  });
 
   return (
-    <div>
-      <button onClick={openModal}>Open Modal</button>
+    <div className='item-video-container'>
+            <Button variant="primary" onClick={openModal}>Highlights</Button>
       <Modal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
-        // style={customStyles}
+        style={customStyles}
         contentLabel="Example Modal"
       >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-        <button onClick={closeModal}>close</button>
-        <div>I am a modal</div>
-        {/* <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-          <iframe src={matches}></iframe>
-        </form> */}
 
+        <Button className='button' variant="danger" onClick={closeModal}>Close</Button>
+        <div>Number of Highlight videos: {videosLength}</div>
         <Carousel interval={null}>
-          <Carousel.Item>
-            <iframe src={matches}></iframe>
-            <Carousel.Caption>
-              <h3>First slide label</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <iframe src={matches}></iframe>
-            <Carousel.Caption>
-              <h3>Second slide label</h3>
-              <p>Second slide label</p>
-            </Carousel.Caption>
-          </Carousel.Item>
+  
+        {videos}
         </Carousel>
+
       </Modal>
     </div>
   );

@@ -1,18 +1,30 @@
-import ItemBody from '../itemBody/ItemBody';
-import ItemVideo from '../ItemVideo/ItemVideo';
-
+import ItemBody from "../itemBody/ItemBody";
+import ItemVideo from "../ItemVideo/ItemVideo";
+import Card from "react-bootstrap/Card";
+import './Item.css';
 export default function Item(props) {
-  // console.log(props);
+
   return (
-    <div className="card" style={{ width: "18rem" }}>
+    <Card className='item-size' >
+      <Card.Body>
               <ItemBody
-       body={props} 
-      />
-      <ItemVideo 
+            body={props}
+            />
+             <ItemVideo
       videos={props.videos}
 
        />
+      </Card.Body>
+    </Card>
 
-    </div>
+    // <div className="card" style={{ width: "18rem" }}>
+      //         <ItemBody
+      //  body={props}
+      // />
+    //   <ItemVideo
+    //   videos={props.videos}
+
+    //    />
+    // </div>
   );
 }

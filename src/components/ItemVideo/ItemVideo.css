@@ -1,0 +1,30 @@
+.item-video-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+}
+
+
+.carousel {
+    width:450px;
+    height:250px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: gainsboro;
+  }
+  
+  iframe {
+    align-self: center;
+    border: 2px solid blue;
+    text-align: center;
+    margin-left:17%
+  }
+
+  .button {
+      margin: 0 auto;
+  }

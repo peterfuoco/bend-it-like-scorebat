@@ -1,6 +1,32 @@
 .item-container {
-    display: grid;
     display: flex;
     width: 100%;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
 }
+
+.main-flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.soccer-ball {
+    background-image:url('https://www.svgrepo.com/show/77569/soccer-ball.svg');
+    width: 500px;
+    height: 500px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+  }
+  @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+  @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+  @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+  
+  
