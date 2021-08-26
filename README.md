@@ -2,12 +2,13 @@
 Bend It Like ScoreBat is a single page app that shows users Soccer data from ScoreBat's API based on a specific search input. Users can filter search results, and click the `Highlights` button to view as many available highlight videos for that soccer match.  
 
 ## Set-up
--Open terminal and clone down the repo 
-`git clone git@github.com:peterfuoco/bend-it-like-scorebat.git`
--Navigate into the root level
--Run `npm install` to download dependencies 
--Run `npm start` to view the app in browser.
--If app doesn't open in browser automatically, go to http://localhost:3000/  
+• Open terminal and clone down the repo   
+e.g. `git clone git@github.com:peterfuoco/bend-it-like-scorebat.git`  
+• Navigate into the root level 
+• Run `npm install` to download dependencies  
+• Run `npm start` to view the app in browser.  
+• If app doesn't open in browser automatically, go to:  
+http://localhost:3000/  
 
 ## Deployed URL
 https://peterfuoco.github.io/bend-it-like-scorebat/
@@ -31,7 +32,7 @@ https://developer.mozilla.org/en-US/
 https://www.w3schools.com/
 
 ### Next Steps / Improvements
-• Identify React Bootstrap bug where the Filter dropdown menus show up off screen. Currently this bug can be bypassed if the user re-clicks on the dropdown button and begins scrolls down
+• Identify occasional React Bootstrap bug where the Filter dropdown menus show up off screen. Currently this bug can be bypassed if the user re-clicks on the dropdown button and begins to scrolls down
 • Consolidate state for state variables that change which each other  
 • Style modal and carousel so it is larger for desktop
 • Re-factor CSS for mobile-first design, responsiveness for mobile  
