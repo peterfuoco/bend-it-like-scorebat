@@ -1,12 +1,11 @@
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Button from "react-bootstrap/Button";
-
 import './Filter.css';
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 
 export default function Filter (props) {
-    console.log(props.buttonState.Dates)
+    // console.log(props.buttonState.Dates)
       //Team filtering
         const teamList1 = props.filterData.map((ele) => {
         return (ele.team1)
@@ -16,7 +15,7 @@ export default function Filter (props) {
       });
       const teamList = teamList1.concat(teamList2)
       const uniqueTeams = [...new Set(teamList)];
-      console.log(uniqueTeams)
+      // console.log(uniqueTeams)
       //Event filtering
       const eventList = props.filterData.map((ele) => {
         return (ele.event)
@@ -44,8 +43,6 @@ export default function Filter (props) {
             <Dropdown.Item>{ele}</Dropdown.Item>
         )
       });
-
-
 
     return (
         <div className="flex-filter-container">

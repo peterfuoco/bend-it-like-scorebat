@@ -16,15 +16,5 @@ export default function Item(props) {
        />
       </Card.Body>
     </Card>
-
-    // <div className="card" style={{ width: "18rem" }}>
-      //         <ItemBody
-      //  body={props}
-      // />
-    //   <ItemVideo
-    //   videos={props.videos}
-
-    //    />
-    // </div>
   );
 }
