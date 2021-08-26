@@ -29,7 +29,7 @@ const Search = (props) => {
           e.g. ENGLAND: League Cup          </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword" type="date" name="date" id="date" >
-          <Form.Label>Event/League</Form.Label>
+          <Form.Label>Date</Form.Label>
           <Form.Control type="date" placeholder="Enter date" />
           <Form.Text className="text-muted">
           e.g. 08/25/2021          </Form.Text>
