@@ -1,4 +1,4 @@
-let data = [
+const data = [
     {
         "title": "Mioveni - U Craiova 1948",
         "embed": "<div style='width:100%;height:0px;position:relative;padding-bottom:calc(56.25% + 335px);' class='_scorebatEmbeddedPlayerW_'><iframe src='https:www.scorebat.com/embed/g/1061102/?utm_source=api&utm_medium=match&utm_campaign=dflt' frameborder='0' width='560' height='650' allowfullscreen allow='autoplay; fullscreen' style='width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;' class='_scorebatEmbeddedPlayer_'></iframe></div>",

@@ -4,22 +4,17 @@ import axios from "axios";
 import Search from "./components/Search/Search";
 import Container from "./components/Container/Container";
 import Header from "./components/Header/Header.js";
-const initialState = {};
 
-function App() {
+export default function App() {
   // User input from Search form
   const [userInput, setUserInput] = useState([]);
-  //Toggle container view
-  const [sent, setSent] = useState([false]);
   // State for filtered view
   const [filteredResponse, setFilteredResponse] = useState([]);
   // User results from search
   const [results, setResults] = useState([]);
   // Api results from axios
   const [soccerData, setSoccerData] = useState([]);
-  // Filter results after user search results
-  const [initialSubmit, setInitialSubmit] = useState([]);
-  // useEffect(() => { setInitialSubmit(initialSubmit)}, [])
+  // Dropdown Button Text
   const [buttonState, setButtonState] = useState({
     Teams: "Teams",
     Events: "Events",
@@ -27,11 +22,10 @@ function App() {
   });
 
   ////// API REQUEST
-  const getData = () => {
-    axios.get("https://www.scorebat.com/video-api/v1/").then((response) => {
-      const soccerData = response.data;
-      setSoccerData(soccerData);
-    });
+  const getData = async () => {
+    const soccerData = await axios.get("https://www.scorebat.com/video-api/v1/")
+    console.log(soccerData.data.length)
+      setSoccerData(soccerData.data);
   };
   useEffect(() => getData(), []);
 
@@ -42,24 +36,23 @@ function App() {
     if (!e.target[0].value && !e.target[1].value && !e.target[2].value) {
       alert("Please enter 1 search criteria");
     } else {
-      let userInput = {
+      const userInput = {
         team: e.target[0].value,
         league: e.target[1].value,
         date: e.target[2].value,
       };
       setUserInput(userInput);
   
-      setSent([true]);
       //Filter API RESPONSE
-      let cleanedApiData = soccerData.map((value) => {
-        let team1 = value.side1.name;
-        let team2 = value.side2.name;
-        let videos = value.videos;
-        let event = value.competition.name;
-        let date = value.date;
+      const cleanedApiData = soccerData.map((value) => {
+        const team1 = value.side1.name;
+        const team2 = value.side2.name;
+        const videos = value.videos;
+        const event = value.competition.name;
+        const date = value.date.slice(0,10);
         //Format date to MMDDYYYY format
-        date = date.slice(0, 10);
-        let newTeam = {
+        // date = date.slice(0, 10);
+        const newTeam = {
           team1: team1,
           team2: team2,
           videos: videos,
@@ -68,20 +61,91 @@ function App() {
         };
         return newTeam;
       });
-
-      let itemsToShow = cleanedApiData.filter(
-        (team) =>
-          // filter over all API response teams, finding where it matches the user input
+       
+      let finalResults= [];
+      if (userInput.team){
+        const teamFinalResults = cleanedApiData.filter(
+          (team) => 
           team.team1 === userInput.team ||
-          team.team2 === userInput.team ||
-          team.event === userInput.league ||
-          team.date === userInput.date
-      );
+          team.team2 === userInput.team
+          )
+          if (teamFinalResults.length > 0){
+            finalResults = teamFinalResults
+          }
+          else {
+            alert('Invalid Team name, please try again')
+          }
+      }
+      if (userInput.league){
+        if (finalResults.length > 0){
+          const leagueFinalResults = finalResults.filter(
+            (team) => 
+            team.event === userInput.league
+            )
+            if (leagueFinalResults.length > 0){
+              finalResults = leagueFinalResults
+            }
+            else {
+              alert('No League/Event Name for the team, please try again')
+            }
+          }
+          else {
+            const leagueFinalResults = cleanedApiData.filter(
+              (team) => 
+              team.event === userInput.league
+              )
+              if (leagueFinalResults.length > 0){
+                finalResults = leagueFinalResults
+              }
+              else {
+                alert('no results for that league')
+              }
+          }
+          console.log(finalResults)
 
-      setResults(itemsToShow);
-      setFilteredResponse(itemsToShow);
+      }
+      if (userInput.date){
+        if (finalResults.length > 0){
+          const dateFinalResults = finalResults.filter(
+            (team) => 
+            team.date === userInput.date
+            )
+            if (dateFinalResults.length > 0){
+              finalResults = dateFinalResults
+            }
+            else {
+              alert('No results for that Date, please try again')
+            }
+        }
+        else {
+          const dateFinalResults = cleanedApiData.filter(
+            (team) => 
+            team.date === userInput.date
+            )
+            finalResults = finalResults.concat(dateFinalResults)
+          }
+          console.log(finalResults)
+
+      }
+      console.log(finalResults)
+      if (finalResults.length > 0){
+        setResults(finalResults); // stores original results
+        console.log(finalResults)
+        setFilteredResponse(finalResults); // sets new filter results
+      }
+      else {
+        alert('No results, please try again')
+      }
     }
   };
+
+  // function handleAllFilters(dropdown){
+  //   const itemsToShow = results.filter(
+  //     (team) =>
+  //       // filter over all API response teams, finding where it matches the user input
+  //       team.team1 === temp || team.team2 === temp
+  //   );
+  // }
 //Function to handle filter button selection
   const handleSelect = (e) => {
     //Verify the target is not the dropdown menu title button before updating results
@@ -94,62 +158,57 @@ function App() {
         e.target.parentElement.parentElement.children[0].id === "team-dropdown"
       ) {
         setUserInput({ ...userInput, team: e.target.innerHTML });
-        let temp = e.target.innerHTML;
-        let displayTemp = temp.slice(0, 10) + "...";
+        const temp = e.target.innerHTML;
+        const displayTemp = temp.slice(0, 10) + "...";
         setButtonState({ ...buttonState, Teams: displayTemp });
-        let itemsToShow = results.filter(
+        const itemsToShow = results.filter(
           (team) =>
             // filter over all API response teams, finding where it matches the user input
             team.team1 === temp || team.team2 === temp
         );
         setResults(itemsToShow);
-        resetTheFilter();
       } else if (
         e.target.parentElement.parentElement.children[0].id === "event-dropdown"
       ) {
         setUserInput({ ...userInput, league: e.target.innerHTML });
-        let temp = e.target.innerHTML;
-        let displayTemp = temp.slice(0, 10) + "...";
+        const temp = e.target.innerHTML;
+        const displayTemp = temp.slice(0, 10) + "...";
         setButtonState({ ...buttonState, Events: displayTemp });
-        let itemsToShow = results.filter(
+        const itemsToShow = results.filter(
           (team) =>
             // filter over all API response teams, finding where it matches the user input
             team.event === temp
         );
         setResults(itemsToShow);
-        resetTheFilter();
       } else if (
         e.target.parentElement.parentElement.children[0].id === "date-dropdown"
       ) {
         setUserInput({ ...userInput, date: e.target.innerHTML });
         console.log(userInput);
-        let temp = e.target.innerHTML;
-        let displayTemp = temp.slice(0, 10) + "...";
+        const temp = e.target.innerHTML;
+        const displayTemp = temp.slice(0, 10) + "...";
         setButtonState({ ...buttonState, Dates: displayTemp });
 
-        let itemsToShow = results.filter(
+        const itemsToShow = results.filter(
           (team) =>
             // filter over all API response teams, finding where it matches the user input
             team.date === temp
         );
         setResults(itemsToShow);
-        resetTheFilter();
+   
       }
+
+
     }
   };
-  //Put initial search results back into Container component
-  const resetTheFilter = () => {
-    setInitialSubmit(results);
-  };
+
 
 // Handles Reset Search button
   const resetTheState = () => {
     setUserInput([]);
-    setSent([]);
     setFilteredResponse([]);
     setResults([]);
     setSoccerData([]);
-    setInitialSubmit([]);
     setButtonState({ Teams: "Teams", Events: "Events", Dates: "Dates" });
   };
   //Pass the function to Search form to reset form fields and all initialstates
@@ -178,17 +237,14 @@ function App() {
       <Container
         setResults={setResults}
         formResponse={userInput}
-        filterToggle={sent}
         results={results}
         filteredResponse={filteredResponse}
         handleSelect={handleSelect}
         clearBtn={clearBtn}
-        initialSubmit={initialSubmit}
         buttonState={buttonState}
       />
     </div>
   );
 }
 
-export default App;
 // https://gomockingbird.com/projects/wp62ohw

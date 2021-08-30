@@ -1,10 +1,9 @@
 // const DOMPurify = require('dompurify')(window);
 import React from "react";
-import ReactDOM from "react-dom";
 import Modal from "react-modal";
 import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
-import './ItemVideo.css';
+import "./ItemVideo.css";
 
 const customStyles = {
   content: {
@@ -19,46 +18,41 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 export default function ItemVideo(props) {
-  console.log(props)
-  let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {
     setIsOpen(true);
   }
 
-
   function closeModal() {
     setIsOpen(false);
   }
-  const videosLength= props.videos.length;
+  const videosLength = props.videos.length;
   const videos = props.videos.map((ele, index) => {
-    let matches = ele.embed.match(/\bhttps?:\/\/\S+/gi)
+    const matches = ele.embed.match(/\bhttps?:\/\/\S+/gi);
     return (
-
       <Carousel.Item key={index}>
         <iframe src={matches}></iframe>
       </Carousel.Item>
-    )
+    );
   });
 
   return (
-    <div className='item-video-container'>
-            <Button variant="primary" onClick={openModal}>Highlights</Button>
+    <div className="item-video-container">
+      <Button variant="primary" onClick={openModal}>
+        Highlights
+      </Button>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Example Modal"
       >
-
-        <Button className='button' variant="danger" onClick={closeModal}>Close</Button>
+        <Button className="button" variant="danger" onClick={closeModal}>
+          Close
+        </Button>
         <div>Number of Highlight videos: {videosLength}</div>
-        <Carousel interval={null}>
-  
-        {videos}
-        </Carousel>
-
+        <Carousel interval={null}>{videos}</Carousel>
       </Modal>
     </div>
   );

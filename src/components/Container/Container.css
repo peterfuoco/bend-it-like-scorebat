@@ -4,7 +4,6 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-
 }
 
 .main-flex-container {
@@ -12,9 +11,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
 }
-
+.filter-item-container {
+    width: 100%;
+    border: 2px solid red;
+}
 .soccer-ball {
     background-image:url('https://www.svgrepo.com/show/77569/soccer-ball.svg');
     width: 500px;
