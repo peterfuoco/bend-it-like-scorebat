@@ -19,6 +19,7 @@ export default function Filter(props) {
     return ele.event;
   });
   const uniqueEvents = [...new Set(eventList)];
+  
   // Date filtering
   const dateList = props.filterData.map((ele) => {
     return ele.date;

@@ -4,11 +4,13 @@
     align-items: center;
     justify-content: center;
 }
+
 h2 {
     opacity: .8;
     text-align: center;
     font-size: 3vw;
 }
+
 h1 {
     font-size: 4vw;
 }

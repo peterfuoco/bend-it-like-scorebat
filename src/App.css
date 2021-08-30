@@ -1,31 +1,5 @@
-/* * {
-  border: 2px solid red;
-} */
-
-section.cards {
-  display: flex;
-  align-items: center;
-}
-
-section.cards .card {
-  margin: 0 10px;
-}
-
-.card-img,
-.card-img-bottom,
-.card-img-top {
-  height: 300px;
-  object-fit: cover;
-}
-
-
 body {
   background: linear-gradient(#6A7AB5, #ffffff);
   height: 100%;
 }
-/* @media (max-width: 900px) {
-  .carousel {
-    width:auto;
-    height:auto;
-  }
-} */
+

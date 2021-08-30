@@ -23,16 +23,18 @@ export default function App() {
 
   ////// API REQUEST
   const getData = async () => {
-    const soccerData = await axios.get("https://www.scorebat.com/video-api/v1/")
-    console.log(soccerData.data.length)
-      setSoccerData(soccerData.data);
+    const soccerData = await axios.get(
+      "https://www.scorebat.com/video-api/v1/"
+    );
+    console.log(soccerData.data.length);
+    setSoccerData(soccerData.data);
   };
   useEffect(() => getData(), []);
 
   ////// FORM SUBMIT
   const submit = (e) => {
     e.preventDefault();
-    // Condition if user input is empty 
+    // Condition if user input is empty
     if (!e.target[0].value && !e.target[1].value && !e.target[2].value) {
       alert("Please enter 1 search criteria");
     } else {
@@ -42,16 +44,15 @@ export default function App() {
         date: e.target[2].value,
       };
       setUserInput(userInput);
-  
+
       //Filter API RESPONSE
       const cleanedApiData = soccerData.map((value) => {
         const team1 = value.side1.name;
         const team2 = value.side2.name;
         const videos = value.videos;
         const event = value.competition.name;
-        const date = value.date.slice(0,10);
-        //Format date to MMDDYYYY format
-        // date = date.slice(0, 10);
+        const date = value.date.slice(0, 10);
+
         const newTeam = {
           team1: team1,
           team2: team2,
@@ -61,92 +62,71 @@ export default function App() {
         };
         return newTeam;
       });
-       
-      let finalResults= [];
-      if (userInput.team){
+
+      let finalResults = [];
+      if (userInput.team) {
         const teamFinalResults = cleanedApiData.filter(
-          (team) => 
-          team.team1 === userInput.team ||
-          team.team2 === userInput.team
-          )
-          if (teamFinalResults.length > 0){
-            finalResults = teamFinalResults
-          }
-          else {
-            alert('Invalid Team name, please try again')
-          }
-      }
-      if (userInput.league){
-        if (finalResults.length > 0){
-          const leagueFinalResults = finalResults.filter(
-            (team) => 
-            team.event === userInput.league
-            )
-            if (leagueFinalResults.length > 0){
-              finalResults = leagueFinalResults
-            }
-            else {
-              alert('No League/Event Name for the team, please try again')
-            }
-          }
-          else {
-            const leagueFinalResults = cleanedApiData.filter(
-              (team) => 
-              team.event === userInput.league
-              )
-              if (leagueFinalResults.length > 0){
-                finalResults = leagueFinalResults
-              }
-              else {
-                alert('no results for that league')
-              }
-          }
-          console.log(finalResults)
-
-      }
-      if (userInput.date){
-        if (finalResults.length > 0){
-          const dateFinalResults = finalResults.filter(
-            (team) => 
-            team.date === userInput.date
-            )
-            if (dateFinalResults.length > 0){
-              finalResults = dateFinalResults
-            }
-            else {
-              alert('No results for that Date, please try again')
-            }
+          (team) =>
+            team.team1 === userInput.team || team.team2 === userInput.team
+        );
+        if (teamFinalResults.length > 0) {
+          finalResults = teamFinalResults;
+        } else {
+          alert("Invalid Team name, please try again");
         }
-        else {
-          const dateFinalResults = cleanedApiData.filter(
-            (team) => 
-            team.date === userInput.date
-            )
-            finalResults = finalResults.concat(dateFinalResults)
+      }
+      if (userInput.league) {
+        if (finalResults.length > 0) {
+          const leagueFinalResults = finalResults.filter(
+            (team) => team.event === userInput.league
+          );
+          if (leagueFinalResults.length > 0) {
+            finalResults = leagueFinalResults;
+          } else {
+            alert("No League/Event Name for the team, please try again");
           }
-          console.log(finalResults)
-
+        } else {
+          const leagueFinalResults = cleanedApiData.filter(
+            (team) => team.event === userInput.league
+          );
+          if (leagueFinalResults.length > 0) {
+            finalResults = leagueFinalResults;
+          } else {
+            alert("no results for that league");
+          }
+        }
+        console.log(finalResults);
       }
-      console.log(finalResults)
-      if (finalResults.length > 0){
+      if (userInput.date) {
+        if (finalResults.length > 0) {
+          const dateFinalResults = finalResults.filter(
+            (team) => team.date === userInput.date
+          );
+          if (dateFinalResults.length > 0) {
+            finalResults = dateFinalResults;
+          } else {
+            alert("No results for that Date, please try again");
+          }
+        } else {
+          const dateFinalResults = cleanedApiData.filter(
+            (team) => team.date === userInput.date
+          );
+          finalResults = finalResults.concat(dateFinalResults);
+        }
+        console.log(finalResults);
+      }
+      console.log(finalResults);
+      if (finalResults.length > 0) {
         setResults(finalResults); // stores original results
-        console.log(finalResults)
+        console.log(finalResults);
         setFilteredResponse(finalResults); // sets new filter results
-      }
-      else {
-        alert('No results, please try again')
+      } else {
+        alert("No results, please try again");
       }
     }
   };
 
-  // function handleAllFilters(dropdown){
-  //   const itemsToShow = results.filter(
-  //     (team) =>
-  //       // filter over all API response teams, finding where it matches the user input
-  //       team.team1 === temp || team.team2 === temp
-  //   );
-  // }
-//Function to handle filter button selection
+  //Function to handle filter button selection
   const handleSelect = (e) => {
     //Verify the target is not the dropdown menu title button before updating results
     if (
@@ -195,15 +175,11 @@ export default function App() {
             team.date === temp
         );
         setResults(itemsToShow);
-   
       }
-
-
     }
   };
 
-
-// Handles Reset Search button
+  // Handles Reset Search button
   const resetTheState = () => {
     setUserInput([]);
     setFilteredResponse([]);
@@ -221,8 +197,7 @@ export default function App() {
     }, 1000);
   };
 
-
-//Clears dropdown button text and changes back to initial state
+  //Clears dropdown button text and changes back to initial state
   const clearBtn = () => {
     console.log(results);
     setResults(filteredResponse);
@@ -233,7 +208,10 @@ export default function App() {
   return (
     <div className="App">
       <Header />
-      <Search submit={submit} handleClear={handleClear} />
+      <Search 
+      submit={submit} 
+      handleClear={handleClear} 
+      />
       <Container
         setResults={setResults}
         formResponse={userInput}

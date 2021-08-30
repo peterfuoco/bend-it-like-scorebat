@@ -3,7 +3,6 @@ import Filter from "../Filter/Filter";
 import "./Container.css";
 
 const Container = (props) => {
-  console.log(props);
 
   // Add results to item component
   const searchResponse = props.results.map((ele, index) => {
@@ -16,7 +15,7 @@ const Container = (props) => {
       {props.results.length === 0 ? (
         <div className="soccer-ball"> </div>
       ) : (
-        <div className='filter-item-container'>
+        <div className="filter-item-container">
           <Filter
             filterData={props.results}
             filterList={props.filterList}

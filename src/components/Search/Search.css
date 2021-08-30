@@ -13,9 +13,11 @@
     text-align: center;
     width: 30vw;
 }
+
 .text-muted {
     font-size: 2vw;
 }
+
 @media (max-width: 800px){
     .form {
         width:40vw;
