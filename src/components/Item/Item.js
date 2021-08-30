@@ -1,4 +1,4 @@
-import ItemBody from "../itemBody/ItemBody";
+import ItemBody from "../ItemBody/ItemBody";
 import ItemVideo from "../ItemVideo/ItemVideo";
 import Card from "react-bootstrap/Card";
 import "./Item.css";
